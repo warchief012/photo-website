@@ -5,17 +5,23 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const response = await fetch(url);
             const html = await response.text();
-            
+
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
             const newMain = doc.querySelector('main.content');
+            const newTitle = doc.querySelector('title');
 
             if (newMain) {
                 const currentMain = document.querySelector('main.content');
-                
-                // Remplace le contenu et les classes (pour conserver les fonds spécifiques comme home-bg)
+
+                // Remplace le contenu et les classes
                 currentMain.innerHTML = newMain.innerHTML;
                 currentMain.className = newMain.className;
+
+                // Met à jour le titre de l'onglet
+                if (newTitle) {
+                    document.title = newTitle.textContent;
+                }
 
                 // Relance l'animation d'apparition
                 currentMain.style.animation = 'none';
@@ -24,14 +30,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         } catch (error) {
             // En cas d'erreur, recharge la page normalement
-            window.location.href = url; 
+            window.location.href = url;
         }
     }
 
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             const targetUrl = link.getAttribute('href');
-            
+
             // Évite de recharger si on clique sur la page actuelle
             if (window.location.pathname.endsWith(targetUrl) || targetUrl === '#') return;
 

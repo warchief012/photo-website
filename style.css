@@ -1,10 +1,10 @@
 /* --- 1. VARIABLES & RESET --- */
 :root {
-    --bg-dark: #0a0a0a; /* Noir plus profond */
+    --bg-dark: #0d0d0d; /* Noir plus profond */
     --bg-sidebar: #121212; 
     --text-main: #f5f5f5;
-    --text-muted: #888888;
-    --accent: #F5A623; /* Un "Or/Ambre" au lieu du jaune pur pour te différencier */
+    --text-muted: #636366;
+    --accent: #D4AF37;
 }
 
 * {
@@ -154,7 +154,7 @@ body {
 /* --- 4. ACCUEIL AVEC IMAGE DE FOND --- */
 .home-bg {
     /* Remplace cette URL par le lien d'une de TES plus belles photos ! */
-    background: url('https://picsum.photos/1920/1080?random=99') center/cover no-repeat;
+    background: url('img/bg.jpg') center/cover no-repeat;
     padding: 0; 
 }
 
@@ -210,7 +210,7 @@ body {
 }
 
 .btn-primary:hover {
-    background-color: #d9911e; /* Variante de l'ambre */
+    background-color: #e69f00; /* Variante de l'ambre */
     transform: translateX(5px); /* Petit effet de mouvement vers la droite */
 }
 
@@ -223,55 +223,27 @@ body {
     border-color: var(--accent);
     color: var(--accent);
 }
-/* --- 5. LES BOUTONS --- */
-.hero-buttons {
-    display: flex;
-    gap: 20px;
-}
 
-.btn {
-    text-decoration: none;
-    padding: 15px 30px;
-    font-weight: 600;
-    border-radius: 4px; /* Bords légèrement arrondis */
-    transition: all 0.3s ease;
-}
-
-.btn-primary {
-    background-color: var(--accent);
-    color: #000; /* Texte noir sur bouton jaune pour bien lire */
-}
-
-.btn-primary:hover {
-    background-color: #eab308; /* Jaune un peu plus foncé au survol */
-}
-
-.btn-outline {
-    border: 1px solid var(--text-muted);
-    color: var(--text-main);
-}
-
-.btn-outline:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-}
 
 /* --- 6. LA GALERIE (STYLE MAÇONNERIE) --- */
 #gallery {
-    margin-top: 80px; /* Espace entre le grand texte et le début des photos */
-    padding-bottom: 50px;
+    margin-top: 40px; 
+    padding: 0 100px 100px 100px; /* 100px de padding pour créer le "cadre" (Haut, Droite, Bas, Gauche) */
+    max-width: 1800px; /* Empêche la galerie de devenir trop immense sur les écrans géants */
+    margin-left: auto; /* Centre la galerie si l'écran est plus large que 1800px */
+    margin-right: auto;
 }
 
 .portfolio-masonry {
-    column-count: 3; /* Nombre de colonnes par défaut */
-    column-gap: 20px; /* L'espace horizontal entre les colonnes */
+    column-count: 4; /* On garde tes 4 colonnes */
+    column-gap: 25px; /* Un peu plus d'espace entre les photos pour aérer le cadre */
 }
 
 .masonry-item {
-    margin-bottom: 20px; /* L'espace vertical entre les photos d'une même colonne */
-    break-inside: avoid; /* Très important : empêche une photo d'être coupée en deux entre deux colonnes */
+    margin-bottom: 25px; /* Espace vertical cohérent avec l'espace horizontal */
+    break-inside: avoid;
     border-radius: 4px;
-    overflow: hidden; /* Permet de garder les bords arrondis même avec le zoom */
+    overflow: hidden;
 }
 
 .masonry-item img {
@@ -635,31 +607,50 @@ body {
     color: var(--accent);
 }
 
-/* --- 7. RESPONSIVE DESIGN (Pour les petits écrans) --- */
-@media (max-width: 1024px) {
+/* --- 7. RESPONSIVE DESIGN --- */
+
+/* Écrans moyens (Laptops) */
+@media (max-width: 1400px) {
+    #gallery {
+        padding: 0 50px 50px 50px; /* On réduit un peu le cadre */
+    }
     .portfolio-masonry {
-        column-count: 2; /* Passe à 2 colonnes sur tablette */
+        column-count: 3; /* On repasse à 3 colonnes */
     }
 }
 
+/* Tablettes */
+@media (max-width: 1024px) {
+    .portfolio-masonry {
+        column-count: 2; /* 2 colonnes */
+    }
+    .page-header h1 {
+        font-size: 2.8rem;
+    }
+}
+
+/* Smartphones */
 @media (max-width: 768px) {
     body {
-        flex-direction: column; /* Le menu passe en haut sur téléphone */
+        flex-direction: column;
     }
-    .sidebar {
+    .slim-sidebar {
         width: 100%;
         height: auto;
         position: relative;
         padding: 20px;
+        flex-direction: row;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
     .content {
         margin-left: 0;
-        padding: 30px 20px;
+        width: 100%;
+    }
+    #gallery {
+        padding: 0 20px 20px 20px; /* Cadre minimal sur mobile */
     }
     .portfolio-masonry {
-        column-count: 1; /* 1 seule colonne sur smartphone */
-    }
-    .hero h1 {
-        font-size: 3rem;
+        column-count: 1; /* 1 seule photo par ligne */
     }
 }
